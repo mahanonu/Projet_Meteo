@@ -14,8 +14,8 @@ const listMeasure = {'temperature':'temperature',
     'rainfall':'precipitation',
     'brightness':'luminosite',
     'winddirection':'vent_direction',
-    'windvelocity':['vent_max','vent_moy','vent_min'],
-    'gpsposition':['N','E']
+    'windvelocity':'vent',
+    'gpsposition':'gps'
 }
 
 /* GET users listing. */
@@ -47,22 +47,31 @@ router.get('/:measure', function(req, res, next) {
     .then(promises => {
         i=0
         promises.forEach(results=>{
-            
-            // console.log(results);
-            for (let index = 0; index < results.length; index++) {
-                console.log(results[index])
-                valeurs[listParam[i]]['Values'].push(results[index].value);
-                valeurs[listParam[i]]['Date'].push(results[index].time._nanoISO);
+            if (listParam[i]=='windvelocity'){
+                for (let index = 0; index < results.length; index++) {
+                    valeurs[listParam[i]]['Values'].push({'min':results[index].min,'moy':results[index].moy, 'max':results[index].max});
+                    valeurs[listParam[i]]['Date'].push(results[index].time._nanoISO);
+                }
             }
+            else if (listParam[i]=='gpsposition'){
+                for (let index = 0; index < results.length; index++) {
+                    valeurs[listParam[i]]['Values'].push({'east':results[index].est,'north':results[index].nord});
+                    valeurs[listParam[i]]['Date'].push(results[index].time._nanoISO);
+                }
+            }
+            else{
+                for (let index = 0; index < results.length; index++) {
+                    valeurs[listParam[i]]['Values'].push(results[index].value);
+                    valeurs[listParam[i]]['Date'].push(results[index].time._nanoISO);
+                }
+            }
+            
             i+=1;
             })
             res.send(valeurs);
     })
     
-    });
-
-    // .then(results => {
-    //     
+    });   
     
 
 function createInfluxClient(){
