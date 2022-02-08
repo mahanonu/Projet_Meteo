@@ -83,11 +83,10 @@ readtph().then((temps)=>{
   })
   fs.readFile('/home/formation/Bureau/donnee_meteo/shm/gpsNmea','utf8',function (err,data) {
     data = data.split(',');
-    console.log(data)
     influx.writePoints([
       {
         measurement: 'GPS',
-        fields: {date: temps, nord: parseFloat(data[4]), est: parseFloat(data[6])},
+        fields: {date: temps, nord: parseFloat(data[2]), est: parseFloat(data[4])},
       }
     ])
   })
