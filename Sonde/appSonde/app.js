@@ -47,7 +47,7 @@ app.use(function(err, req, res, next) {
 //Creata an influx client using default db (express_response_db) for now
 const influx = new Influx.InfluxDB({
   host: 'localhost',
-  database: 'express_response_db',
+  database: 'meteoBase',
   schema: [
     {
       measurement: 'response_times',
