@@ -1,8 +1,3 @@
-//Influx
-const Influx = require('influx');
-const http = require('http');
-const os = require('os');
-
 //Express
 var createError = require('http-errors');
 var express = require('express');
@@ -12,6 +7,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var dataRouter = require('./routes/data');
 
 var app = express();
 
@@ -27,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/data', dataRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,39 +40,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-//Creata an influx client using default db (express_response_db) for now
-const influx = new Influx.InfluxDB({
-  host: 'localhost',
-  database: 'meteoBase',
-  schema: [
-    {
-      measurement: 'response_times',
-      fields: {
-        path: Influx.FieldType.STRING,
-        duration: Influx.FieldType.INTEGER
-      },
-      tags: [
-        'host'
-      ]
-    }
-  ]
-})
-
-//Make sure the database exists
-influx.getDatabaseNames()
-  .then(names => {
-    if (!names.includes('express_response_db')) {
-      return influx.createDatabase('express_response_db');
-    }
-  })
-  .then(() => {
-    http.createServer(app).listen(3000, function () {
-      console.log('Listening on port 3000')
-    })
-  })
-  .catch(err => {
-    console.error(`Error creating Influx database!`);
-  })
 
 module.exports = app;
