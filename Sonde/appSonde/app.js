@@ -1,5 +1,5 @@
 //Influx
-const Influx = require('../../');
+const Influx = require('influx');
 const http = require('http');
 const os = require('os');
 
