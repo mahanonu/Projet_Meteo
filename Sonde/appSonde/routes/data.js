@@ -11,7 +11,7 @@ var router = express.Router();
 const listMeasure = {'temperature':'temperature',
     'hygrometry':'hygrometrie',
     'pressure':'pression',
-    'rainfall':'precipitation',
+    'rainfall':'pluie',
     'brightness':'luminosite',
     'winddirection':'vent_direction',
     'windvelocity':'vent',
