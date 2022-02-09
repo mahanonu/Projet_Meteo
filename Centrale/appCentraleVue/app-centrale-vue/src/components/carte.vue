@@ -40,14 +40,14 @@ export default {
    }
  },
 created(){
-    fetch('http://localhost:8080/data/GPSPosition')
+    fetch('http://piensg028:8080/data/GPSPosition')
     .then(result => {
         return(result.json());
     })
     .then(data => {
         //TODO attention l'api va changer il faudra modifier
-        console.log(data['gpsposition']['Values'][0]['east']);
-        let mark = {id: 1, imageUrl: require('@/assets/logo_raspberrypi.png'), coordinates: [ data['gpsposition']['Values'][0]['north'], data['gpsposition']['Values'][0]['east'] ]};
+        console.log(data['gpsposition']['value'][0]['lon']);
+        let mark = {id: 1, imageUrl: require('@/assets/logo_raspberrypi.png'), coordinates: [ data['gpsposition']['value'][0]['lat'], data['gpsposition']['value'][0]['lon'] ]};
         console.log(mark);
         this.markers.push(mark);
     })

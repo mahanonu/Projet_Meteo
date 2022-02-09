@@ -4,16 +4,19 @@
     <div class="map-container">
       <carte/>
     </div>
+    <graph/>
   </div>
 </template>
 
 <script>
 import carte from './components/carte.vue'
+import graph from './components/graph.vue'
 
 export default {
   name: 'App',
   components: {
-    carte
+    carte,
+    graph
   }
 }
 </script>
