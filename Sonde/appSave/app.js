@@ -62,22 +62,22 @@ readtph().then((temps)=>{
     influx.writePoints([
       {
         measurement: 'luminosite',
-        fields: {date: temps, value: data['measure'][3]['value']},
+        fields: {date: temps, value: Number(data['measure'][3]['value'])},
       }
     ])
     influx.writePoints([
       {
         measurement: 'vent_direction',
-        fields: {date: temps, value: data['measure'][4]['value']},
+        fields: {date: temps, value: Number(data['measure'][4]['value'])},
       }
     ])
     influx.writePoints([
       {
         measurement: 'vent',
         fields: {date: temps, 
-                  vent_moy: data['measure'][5]['value'], 
-                  vent_max: data['measure'][6]['value'],
-                  vent_min: data['measure'][7]['value']}
+                  vent_moy: Number(data['measure'][5]['value']), 
+                  vent_max: Number(data['measure'][6]['value']),
+                  vent_min: Number(data['measure'][7]['value'])}
       }
     ])
   })
