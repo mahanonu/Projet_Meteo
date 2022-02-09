@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="map-container">
+      <carte/>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import carte from './components/carte.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    carte
   }
 }
 </script>
@@ -24,5 +26,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.map-container {
+  height: 500px;
+  width: 600px;
 }
 </style>
