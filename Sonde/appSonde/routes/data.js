@@ -50,19 +50,19 @@ router.get('/:measure', function(req, res, next) {
             if (listParam[i]=='windvelocity'){
                 for (let index = 0; index < results.length; index++) {
                     valeurs[listParam[i]]['value'].push({'min':results[index].vent_min,'avg':results[index].vent_moy, 'max':results[index].vent_max});
-                    valeurs[listParam[i]]['date'].push(results[index].time._nanoISO);
+                    valeurs[listParam[i]]['date'].push(results[index].date);
                 }
             }
             else if (listParam[i]=='gpsposition'){
                 for (let index = 0; index < results.length; index++) {
                     valeurs[listParam[i]]['value'].push({'lon':results[index].est,'lat':results[index].nord});
-                    valeurs[listParam[i]]['date'].push(results[index].time._nanoISO);
+                    valeurs[listParam[i]]['date'].push(results[index].date);
                 }
             }
             else{
                 for (let index = 0; index < results.length; index++) {
                     valeurs[listParam[i]]['value'].push(results[index].value);
-                    valeurs[listParam[i]]['date'].push(results[index].time._nanoISO);
+                    valeurs[listParam[i]]['date'].push(results[index].date);
                 }
             }
             
@@ -75,6 +75,7 @@ router.get('/:measure', function(req, res, next) {
 
 
     router.get('/:measure/:date', function(req, res, next) {
+        console.log('salut');
         let listParam = req.params['measure'].split(',').map(elem => elem.toLowerCase());
         let listDate = req.params['date'].split(',');
 
@@ -82,20 +83,22 @@ router.get('/:measure', function(req, res, next) {
         //Creata an influx client using default db (express_response_db) for now
         const influx = createInfluxClient();
 
-        let dateDebut = new Date(listDate[0]);
+        let dateDebut = new Date(listDate[0]).getTime();
         let dateFin = Date.now();
         console.log(dateFin);
-    
+        console.log(dateDebut);
+        
         if (listDate.length == 2) {
-            dateFin = new Date(listDate[1]);
+            dateFin = new Date(listDate[1]).getTime();
         }
+        console.log(dateFin);
         let valeurs = {};
         let allPromises = [];
         listParam.forEach(param => {
             valeurs[param] ={'date':[],'value':[]};
             allPromises.push(
             influx.query(
-                `select * from ${listMeasure[param]}`
+                `select * from ${listMeasure[param]} where date>${dateDebut} and date<=${dateFin}`
             ))
         });
     
@@ -106,19 +109,19 @@ router.get('/:measure', function(req, res, next) {
                 if (listParam[i]=='windvelocity'){
                     for (let index = 0; index < results.length; index++) {
                         valeurs[listParam[i]]['value'].push({'min':results[index].min,'avg':results[index].moy, 'max':results[index].max});
-                        valeurs[listParam[i]]['date'].push(results[index].time._nanoISO);
+                        valeurs[listParam[i]]['date'].push(results[index].date);
                     }
                 }
                 else if (listParam[i]=='gpsposition'){
                     for (let index = 0; index < results.length; index++) {
                         valeurs[listParam[i]]['value'].push({'lon':results[index].est,'lat':results[index].nord});
-                        valeurs[listParam[i]]['date'].push(results[index].time._nanoISO);
+                        valeurs[listParam[i]]['date'].push(results[index].date);
                     }
                 }
                 else{
                     for (let index = 0; index < results.length; index++) {
                         valeurs[listParam[i]]['value'].push(results[index].value);
-                        valeurs[listParam[i]]['date'].push(results[index].time._nanoISO);
+                        valeurs[listParam[i]]['date'].push(results[index].date);
                     }
                 }
                 
