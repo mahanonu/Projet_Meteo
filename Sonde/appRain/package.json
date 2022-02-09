@@ -1,0 +1,17 @@
+{
+  "name": "apprain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "influx": "^5.9.3",
+    "package.json": "^2.0.1"
+  }
+}
