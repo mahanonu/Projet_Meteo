@@ -55,7 +55,7 @@ router.get('/:measure', function(req, res, next) {
             }
             else if (listParam[i]=='gpsposition'){
                 for (let index = 0; index < results.length; index++) {
-                    valeurs[listParam[i]]['value'].push({'east':results[index].est,'north':results[index].nord});
+                    valeurs[listParam[i]]['value'].push({'lon':results[index].est,'lat':results[index].nord});
                     valeurs[listParam[i]]['date'].push(results[index].time._nanoISO);
                 }
             }
@@ -111,7 +111,7 @@ router.get('/:measure', function(req, res, next) {
                 }
                 else if (listParam[i]=='gpsposition'){
                     for (let index = 0; index < results.length; index++) {
-                        valeurs[listParam[i]]['value'].push({'east':results[index].est,'north':results[index].nord});
+                        valeurs[listParam[i]]['value'].push({'lon':results[index].est,'lat':results[index].nord});
                         valeurs[listParam[i]]['date'].push(results[index].time._nanoISO);
                     }
                 }
