@@ -28,7 +28,7 @@ influx.getDatabaseNames()
   
 function readtph(){
   return new Promise((resolve,rejects)=>{
-    fs.readFile('/home/formation/Bureau/donnee_meteo/shm/tph.log', 'utf8',function (err,data) {
+    fs.readFile('/dev/shm/tph.log', 'utf8',function (err,data) {
       data = JSON.parse(data);
       date = data['date'];
       date = new Date(date);
@@ -58,7 +58,7 @@ function readtph(){
 }
 
 readtph().then((temps)=>{
-  fs.readFile('/home/formation/Bureau/donnee_meteo/shm/sensors', 'utf8',function (err,data) {
+  fs.readFile('/dev/shm/sensors', 'utf8',function (err,data) {
     data = JSON.parse(data);
     influx.writePoints([
       {
@@ -82,7 +82,7 @@ readtph().then((temps)=>{
       }
     ])
   })
-  fs.readFile('/home/formation/Bureau/donnee_meteo/shm/gpsNmea','utf8',function (err,data) {
+  fs.readFile('/dev/shm/gpsNmea','utf8',function (err,data) {
     data = data.split(/\r?\n/);
     data = nmea.parse(data[1]);
     console.log(data.loc['geojson']['coordinates'][0]);
