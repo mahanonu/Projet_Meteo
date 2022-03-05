@@ -36,19 +36,19 @@ function readtph(){
       influx.writePoints([
           {
             measurement: 'temperature',
-            fields: {date: temps, value: data['temp']},
+            fields: {date: (new Date (temps)).toLocaleString(), value: data['temp']},
           }
       ])
       influx.writePoints([
         {
           measurement: 'hygrometrie',
-          fields: {date: temps, value: data['hygro']},
+          fields: {date: (new Date (temps)).toLocaleString(), value: data['hygro']},
         }
     ])
     influx.writePoints([
       {
         measurement: 'pression',
-        fields: {date: temps, value: data['press']},
+        fields: {date: (new Date (temps)).toLocaleString(), value: data['press']},
       }
     ])
     resolve(temps);
@@ -63,19 +63,19 @@ readtph().then((temps)=>{
     influx.writePoints([
       {
         measurement: 'luminosite',
-        fields: {date: temps, value: Number(data['measure'][3]['value'])},
+        fields: {date: (new Date (temps)).toLocaleString(), value: Number(data['measure'][3]['value'])},
       }
     ])
     influx.writePoints([
       {
         measurement: 'vent_direction',
-        fields: {date: temps, value: Number(data['measure'][4]['value'])},
+        fields: {date: (new Date (temps)).toLocaleString(), value: Number(data['measure'][4]['value'])},
       }
     ])
     influx.writePoints([
       {
         measurement: 'vent',
-        fields: {date: temps, 
+        fields: {date: (new Date (temps)).toLocaleString(), 
                   vent_moy: Number(data['measure'][5]['value']), 
                   vent_max: Number(data['measure'][6]['value']),
                   vent_min: Number(data['measure'][7]['value'])}
@@ -90,7 +90,7 @@ readtph().then((temps)=>{
     influx.writePoints([
       {
         measurement: 'GPS',
-        fields: {date: temps, nord: data.loc['geojson']['coordinates'][0], est: data.loc['geojson']['coordinates'][]},
+        fields: {date: (new Date (temps)).toLocaleString(), nord: data.loc['geojson']['coordinates'][0], est: data.loc['geojson']['coordinates'][1]},
       }
     ])
   })
