@@ -83,8 +83,8 @@ readtph().then((temps)=>{
     ])
   })
   fs.readFile('/home/formation/Bureau/donnee_meteo/shm/gpsNmea','utf8',function (err,rawData) {
+    rawData = rawData.split(/\r?\n/)[1];
     const data = nmea.parse(rawData);
-    data = data.split(',');
     influx.writePoints([
       {
         measurement: 'GPS',
