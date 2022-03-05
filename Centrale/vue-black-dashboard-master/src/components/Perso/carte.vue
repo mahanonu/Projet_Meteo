@@ -28,12 +28,12 @@ export default {
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       center: [49.1193089, 6.1757156],
-      zoom: 12,
+      zoom: 2,
       markers: [],
     };
   },
   created() {
-    let sonde = ["031", "028", "032"];
+    let sonde = ["031", "028"];
     let urls = [];
     for (let index = 0; index < sonde.length; index++) {
       urls.push(`http://piensg${sonde[index]}:8080/data/GPSPosition`);
@@ -61,17 +61,6 @@ export default {
         
       });
 
-    // fetch('http://piensg031:8080/data/GPSPosition')
-    // .then(result => {
-    //     return(result.json());
-    // })
-    // .then(data => {
-    //     //TODO attention l'api va changer il faudra modifier
-    //     console.log(data['gpsposition']['value'][0]['lon']);
-    //     let mark = {id: 1, imageUrl: require('@/assets/img/logo_raspberrypi.png'), coordinates: [ parseFloat(data['gpsposition']['value'][0]['lat']), parseFloat(data['gpsposition']['value'][0]['lon']) ]};
-    //     console.log(mark);
-    //     this.markers.push(mark);
-    // })
   },
   methods: {
     zoomUpdated(zoom) {
