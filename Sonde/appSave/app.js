@@ -1,3 +1,4 @@
+const nmea = require('@drivetech/node-nmea');
 var Influx = require('influx');
 var path = require('path');
 var fs = require('fs');
@@ -81,12 +82,13 @@ readtph().then((temps)=>{
       }
     ])
   })
-  fs.readFile('/home/formation/Bureau/donnee_meteo/shm/gpsNmea','utf8',function (err,data) {
+  fs.readFile('/home/formation/Bureau/donnee_meteo/shm/gpsNmea','utf8',function (err,rawData) {
+    const data = nmea.parse(rawData);
     data = data.split(',');
     influx.writePoints([
       {
         measurement: 'GPS',
-        fields: {date: temps, nord: parseFloat(data[2]), est: parseFloat(data[4])},
+        fields: {date: temps, nord: data.loc['coordinates'][0], est: data.loc['coordinates'][1]},
       }
     ])
   })
