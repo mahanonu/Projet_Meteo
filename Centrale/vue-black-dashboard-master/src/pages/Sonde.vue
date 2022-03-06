@@ -45,7 +45,6 @@
               <a class="dropdown-item" @click="changeChart" href="#sonde">{{$t('hygrometry')}}</a>
               <a class="dropdown-item" @click="changeChart" href="#sonde">{{$t('brightness')}}</a>
               <a class="dropdown-item" @click="changeChart" href="#sonde">{{$t('rainfall')}}</a>
-              <a class="dropdown-item" @click="changeChart" href="#sonde">{{$t('windvelocity')}}</a>
             </base-dropdown>
       <h2>{{ chart }}</h2>
       <div class="col-12">
