@@ -48,7 +48,7 @@ function readtph(){
     influx.writePoints([
       {
         measurement: 'pression',
-        fields: {date: (new Date (temps))..toISOString(), value: data['press']},
+        fields: {date: (new Date (temps)).toISOString(), value: data['press']},
       }
     ])
     resolve(temps);
