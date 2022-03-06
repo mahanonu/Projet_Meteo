@@ -30,7 +30,7 @@ fs.watch('/dev/shm/rainCounter.log',(eventType,filename)=>{
         influx.writePoints([
             {
               measurement: 'pluie',
-              fields: {date: (new Date (temps)).toLocaleString(), value: 1},
+              fields: {date: (new Date (temps)).toISOString()(), value: 1},
             }
         ])
     })
