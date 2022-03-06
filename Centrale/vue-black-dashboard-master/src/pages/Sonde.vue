@@ -12,6 +12,16 @@
               <a class="dropdown-item" @click="changeSonde" href="#sonde">{{$t('Sonde032')}}</a>  
             </base-dropdown>
       <h2>Sonde {{ sonde }}</h2>
+      <base-dropdown menu-on-left=""
+                           tag="div"
+                           title-classes="btn btn-link btn-icon"
+                           aria-label="Settings menu"
+                           >
+              <i slot="title" class="tim-icons icon-settings-gear-63"></i>
+              <a class="dropdown-item" @click="changeDate" href="#sonde">{{$t('week')}}</a>
+              <a class="dropdown-item" @click="changeDate" href="#sonde">{{$t('month')}}</a>
+              <a class="dropdown-item" @click="changeDate" href="#sonde">{{$t('year')}}</a>  
+            </base-dropdown>
       <div class="col-12">
         <card :title="table1.title">
           <div class="table-responsive">
@@ -116,6 +126,7 @@ export default {
       sonde: "028",
       chart: "temperature",
       wind: "max wind velocity",
+      date: 7,
       meteoChar: {
           extraOptions: chartConfigs.purpleChartOptions,
           chartData: {
@@ -176,6 +187,17 @@ export default {
       }) 
     },
   methods: {
+      changeDate(event){
+        if(event.originalTarget.innerHTML=='week'){
+          this.date = 7;
+        }else if(event.originalTarget.innerHTML=='month'){
+          this.date = 30;
+        }else{
+          this.date = 365;
+        }
+        this.fillChart();
+        this.fillWind();
+      },
       changeSonde(event){
         this.sonde = event.originalTarget.innerHTML.split('Sonde')[1];
         this.fillData();
@@ -258,7 +280,7 @@ export default {
         
       },
       fillChart () {
-        fetch(`http://piensg${this.sonde}:8080/data/${this.chart}/${new Date(Date.now()-86400000*7).toISOString()}`)
+        fetch(`http://piensg${this.sonde}:8080/data/${this.chart}/${new Date(Date.now()-86400000*this.date).toISOString()}`)
         .then(result => {
             return(result.json());
         })
@@ -303,7 +325,7 @@ export default {
         })
       },
       fillWind () {
-        fetch(`http://piensg${this.sonde}:8080/data/windvelocity/${new Date(Date.now()-86400000).toISOString()}`)
+        fetch(`http://piensg${this.sonde}:8080/data/windvelocity/${new Date(Date.now()-86400000*this.date).toISOString()}`)
         .then(result => {
             return(result.json());
         })
