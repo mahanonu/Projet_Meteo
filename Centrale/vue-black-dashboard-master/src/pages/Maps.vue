@@ -1,5 +1,5 @@
 <template>
-    <card type="plain" title="Google Maps">
+    <card type="plain" title="Sonds' Position">
       <div class="map-container">
         <carte/>
       </div>
