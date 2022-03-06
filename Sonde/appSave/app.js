@@ -28,7 +28,7 @@ influx.getDatabaseNames()
   
 function readtph(){
   return new Promise((resolve,rejects)=>{
-    fs.readFile('/dev/shm/tph.log', 'utf8',function (err,data) {
+    fs.readFile('/home/formation/Bureau/donnee_meteo/shm/tph.log', 'utf8',function (err,data) {
       data = JSON.parse(data);
       date = data['date'];
       date = new Date(date);
@@ -36,19 +36,19 @@ function readtph(){
       influx.writePoints([
           {
             measurement: 'temperature',
-            fields: {date: (new Date (temps)).toISOString(), value: data['temp']},
+            fields: {date: temps, value: data['temp']},
           }
       ])
       influx.writePoints([
         {
           measurement: 'hygrometrie',
-          fields: {date: (new Date (temps)).toISOString(), value: data['hygro']},
+          fields: {date: temps, value: data['hygro']},
         }
     ])
     influx.writePoints([
       {
         measurement: 'pression',
-        fields: {date: (new Date (temps)).toISOString(), value: data['press']},
+        fields: {date: temps, value: data['press']},
       }
     ])
     resolve(temps);
@@ -58,31 +58,31 @@ function readtph(){
 }
 
 readtph().then((temps)=>{
-  fs.readFile('/dev/shm/sensors', 'utf8',function (err,data) {
+  fs.readFile('/home/formation/Bureau/donnee_meteo/shm/sensors', 'utf8',function (err,data) {
     data = JSON.parse(data);
     influx.writePoints([
       {
         measurement: 'luminosite',
-        fields: {date: (new Date (temps)).toISOString(), value: Number(data['measure'][3]['value'])},
+        fields: {date: temps, value: Number(data['measure'][3]['value'])},
       }
     ])
     influx.writePoints([
       {
         measurement: 'vent_direction',
-        fields: {date: (new Date (temps)).toISOString(), value: Number(data['measure'][4]['value'])},
+        fields: {date: temps, value: Number(data['measure'][4]['value'])},
       }
     ])
     influx.writePoints([
       {
         measurement: 'vent',
-        fields: {date: (new Date (temps)).toISOString(), 
+        fields: {date: temps, 
                   vent_moy: Number(data['measure'][5]['value']), 
                   vent_max: Number(data['measure'][6]['value']),
                   vent_min: Number(data['measure'][7]['value'])}
       }
     ])
   })
-  fs.readFile('/dev/shm/gpsNmea','utf8',function (err,data) {
+  fs.readFile('/home/formation/Bureau/donnee_meteo/shm/gpsNmea','utf8',function (err,data) {
     data = data.split(/\r?\n/);
     data = nmea.parse(data[1]);
     console.log(data.loc['geojson']['coordinates'][0]);
@@ -90,7 +90,7 @@ readtph().then((temps)=>{
     influx.writePoints([
       {
         measurement: 'GPS',
-        fields: {date: (new Date (temps)).toISOString(), nord: data.loc['geojson']['coordinates'][0], est: data.loc['geojson']['coordinates'][1]},
+        fields: {date: temps, nord: data.loc['geojson']['coordinates'][0], est: data.loc['geojson']['coordinates'][1]},
       }
     ])
   })
