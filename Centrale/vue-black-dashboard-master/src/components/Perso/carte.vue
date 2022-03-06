@@ -33,10 +33,10 @@ export default {
     };
   },
   created() {
-    let sonde = ["031", "028"];
+    let sonde = ["031", "028", "032"];
     let urls = [];
     for (let index = 0; index < sonde.length; index++) {
-      urls.push(`http://piensg${sonde[index]}:8080/data/GPSPosition`);
+      urls.push(`http://piensg${sonde[index]}:8080/data/gpsposition`);
     }
 
     Promise.all(urls.map((u) => fetch(u)))
