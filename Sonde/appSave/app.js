@@ -1,3 +1,4 @@
+const nmea = require('@drivetech/node-nmea');
 var Influx = require('influx');
 var path = require('path');
 var fs = require('fs');
@@ -82,11 +83,14 @@ readtph().then((temps)=>{
     ])
   })
   fs.readFile('/dev/shm/gpsNmea','utf8',function (err,data) {
-    data = data.split(',');
+    data = data.split(/\r?\n/);
+    data = nmea.parse(data[1]);
+    console.log(data.loc['geojson']['coordinates'][0]);
+    console.log(data.loc['geojson']['coordinates'][1]);
     influx.writePoints([
       {
         measurement: 'GPS',
-        fields: {date: temps, nord: parseFloat(data[2]), est: parseFloat(data[4])},
+        fields: {date: temps, nord: data.loc['geojson']['coordinates'][0], est: data.loc['geojson']['coordinates'][1]},
       }
     ])
   })
