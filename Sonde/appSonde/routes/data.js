@@ -50,19 +50,19 @@ router.get('/:measure', function(req, res, next) {
             if (listParam[i]=='windvelocity'){
                 for (let index = 0; index < results.length; index++) {
                     valeurs[listParam[i]]['value'].push({'min':results[index].vent_min,'avg':results[index].vent_moy, 'max':results[index].vent_max});
-                    valeurs[listParam[i]]['date'].push(results[index].date);
+                    valeurs[listParam[i]]['date'].push((new Date (results[index].date)).toISOString());
                 }
             }
             else if (listParam[i]=='gpsposition'){
                 for (let index = 0; index < results.length; index++) {
-                    valeurs[listParam[i]]['value'].push({'lon':results[index].est,'lat':results[index].nord});
-                    valeurs[listParam[i]]['date'].push(results[index].date);
+                    valeurs[listParam[i]]['value'].push({'lon':results[index].nord,'lat':results[index].est});
+                    valeurs[listParam[i]]['date'].push((new Date (results[index].date)).toISOString());
                 }
             }
             else{
                 for (let index = 0; index < results.length; index++) {
                     valeurs[listParam[i]]['value'].push(results[index].value);
-                    valeurs[listParam[i]]['date'].push(results[index].date);
+                    valeurs[listParam[i]]['date'].push((new Date (results[index].date)).toISOString());
                 }
             }
             
@@ -109,19 +109,19 @@ router.get('/:measure', function(req, res, next) {
                 if (listParam[i]=='windvelocity'){
                     for (let index = 0; index < results.length; index++) {
                         valeurs[listParam[i]]['value'].push({'min':results[index].min,'avg':results[index].moy, 'max':results[index].max});
-                        valeurs[listParam[i]]['date'].push(results[index].date);
+                        valeurs[listParam[i]]['date'].push((new Date (results[index].date)).toISOString());
                     }
                 }
                 else if (listParam[i]=='gpsposition'){
                     for (let index = 0; index < results.length; index++) {
                         valeurs[listParam[i]]['value'].push({'lon':results[index].est,'lat':results[index].nord});
-                        valeurs[listParam[i]]['date'].push(results[index].date);
+                        valeurs[listParam[i]]['date'].push((new Date (results[index].date)).toISOString());
                     }
                 }
                 else{
                     for (let index = 0; index < results.length; index++) {
                         valeurs[listParam[i]]['value'].push(results[index].value);
-                        valeurs[listParam[i]]['date'].push(results[index].date);
+                        valeurs[listParam[i]]['date'].push((new Date (results[index].date)).toISOString());
                     }
                 }
                 
