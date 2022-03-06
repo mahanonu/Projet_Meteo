@@ -7,9 +7,11 @@
                            aria-label="Settings menu"
                            >
               <i slot="title" class="tim-icons icon-settings-gear-63"></i>
+              <a class="dropdown-item" @click="changeSonde" href="#sonde">{{$t('Sonde027')}}</a>
               <a class="dropdown-item" @click="changeSonde" href="#sonde">{{$t('Sonde028')}}</a>
+              <a class="dropdown-item" @click="changeSonde" href="#sonde">{{$t('Sonde030')}}</a>
               <a class="dropdown-item" @click="changeSonde" href="#sonde">{{$t('Sonde031')}}</a>
-              <a class="dropdown-item" @click="changeSonde" href="#sonde">{{$t('Sonde032')}}</a>  
+              <a class="dropdown-item" @click="changeSonde" href="#sonde">{{$t('Sonde032')}}</a>
             </base-dropdown>
       <h2>Sonde {{ sonde }}</h2>
       <base-dropdown menu-on-left=""
