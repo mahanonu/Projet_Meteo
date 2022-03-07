@@ -1,6 +1,6 @@
 # Projet_Meteo
 
-Welcome to the git of our meteo Dashboard. You can find it at :
+Welcome to the git of our meteo Dashboard. You can find it at : http://piensg028:8080/
 
 ## AppSave and AppRain
 
@@ -24,3 +24,5 @@ The dashboard is composed of 3 pages:<br>
 - a Dashboard Sondes page where you can see data of several stations and compare it through charts
 - a Sonde page where you can choose to see data of a specific station
 - a Map page where you can see where our meteo stations are localised.
+
+We deploy our dashboard by building it with `npm run build` and adding it to the appSonde in a dedicated url.
