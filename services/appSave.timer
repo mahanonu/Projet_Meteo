@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer to update Database
+
+[Timer]
+OnBootSec=1s
+OnUnitActiveSec=60s
+
+[Install]
+WantedBy=timers.target

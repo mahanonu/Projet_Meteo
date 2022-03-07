@@ -1,0 +1,10 @@
+[Unit]
+Description=Api to get weather data
+
+[Service]
+WorkingDirectory=/home/pi/Projet_Meteo/Sonde/appSonde
+ExecStartPre=/usr/bin/npm install
+ExecStart=/usr/bin/npm start
+
+[Install]
+WantedBy=multi-user.target

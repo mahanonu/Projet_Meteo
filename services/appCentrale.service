@@ -1,0 +1,11 @@
+[Unit]
+Description=Website of meteobase
+
+[Service]
+WorkingDirectory=/home/pi/Projet_Meteo/Centrale/vue-black-dashboard-master
+ExecStartPre=/root/.nvm/nvm.sh use v10.19.0
+ExecStartPre=/usr/bin/npm install
+ExecStart=/usr/bin/npm run serve -- --port 8081
+
+[Install]
+WantedBy=multi-user.target

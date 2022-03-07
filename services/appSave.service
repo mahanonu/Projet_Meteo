@@ -1,0 +1,10 @@
+[Unit]
+Description=Update the meteoDatabase
+
+[Service]
+WorkingDirectory=/home/pi/Projet_Meteo/Sonde/appSave
+ExecStartPre=/usr/bin/npm install
+ExecStart=/usr/bin/npm start
+
+[Install]
+WantedBy=multi-user.target

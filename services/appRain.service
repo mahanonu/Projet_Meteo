@@ -1,0 +1,11 @@
+[Unit]
+Description=Initializing listener for rainCounter
+
+[Service]
+WorkingDirectory=/home/pi/Projet_Meteo/Sonde/appRain
+ExecStartPre=/usr/bin/npm install
+ExecStart=/usr/bin/npm start
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
