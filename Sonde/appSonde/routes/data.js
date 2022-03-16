@@ -75,7 +75,6 @@ router.get('/:measure', function(req, res, next) {
 
 
     router.get('/:measure/:date', function(req, res, next) {
-        console.log('salut');
         let listParam = req.params['measure'].split(',').map(elem => elem.toLowerCase());
         let listDate = req.params['date'].split(',');
 
@@ -85,13 +84,10 @@ router.get('/:measure', function(req, res, next) {
 
         let dateDebut = new Date(listDate[0]).getTime();
         let dateFin = Date.now();
-        console.log(dateFin);
-        console.log(dateDebut);
         
         if (listDate.length == 2) {
             dateFin = new Date(listDate[1]).getTime();
         }
-        console.log(dateFin);
         let valeurs = {};
         let allPromises = [];
         listParam.forEach(param => {
